@@ -1,24 +1,16 @@
 import numpy as np
 from tensorflow import keras
-from tensorflow.keras.datasets import fashion_mnist
 
-# build a classification model
+from create_model import CommonModel
 
-(X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
+common_model = CommonModel()
+common_model.create_model()
 
-X_valid, X_train = X_train_full[:5000] / 255.0, X_train_full[5000:] / 255.0
-y_valid, y_train = y_train_full[:5000], y_train_full[5000:]
+model = common_model.model
+full_data = common_model.full_data
 
-model = keras.models.Sequential([
-    keras.layers.Flatten(input_shape=[28, 28]),
-    keras.layers.Dense(300, activation="relu"),
-    keras.layers.Dense(100, activation="relu"),
-    keras.layers.Dense(10, activation="softmax")
-])
-
-model.compile(loss="sparse_categorical_crossentropy",
-              optimizer="sgd", metrics=["accuracy"])
-model.fit(X_train, y_train, epochs=30, validation_data=(X_valid, y_valid))
+model.fit(full_data.X_train, full_data.y_train, epochs=30,
+          validation_data=(full_data.X_valid, full_data.y_valid))
 
 # save model
 model.save("my_model.h5")
@@ -26,10 +18,10 @@ model.save("my_model.h5")
 # load model
 model = keras.models.load_model("my_model.h5")
 
-model.evaluate(X_test, y_test)
+model.evaluate(full_data.X_test, full_data.y_test)
 
-X_new = X_test[:3]
-y_new = y_test[:3]
+X_new = full_data.X_test[:3]
+y_new = full_data.y_test[:3]
 
 y_pred = model.predict(X_new)
 y_pred = np.argmax(y_pred, axis=-1)
