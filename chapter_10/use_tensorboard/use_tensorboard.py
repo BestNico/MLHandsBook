@@ -5,7 +5,7 @@ import os
 import time
 from tensorflow import keras
 
-from save_restore_model.create_model import CommonModel
+from chapter_10.save_restore_model.create_model import CommonModel
 
 
 root_logdir = os.path.join(os.curdir, "my_logs")
