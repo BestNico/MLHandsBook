@@ -5,8 +5,8 @@ from scipy.stats import reciprocal
 from sklearn.model_selection import RandomizedSearchCV
 from tensorflow import keras
 
-from data_model.housing_Boston import BostonHousing
-from data_model.housing_california import CaliforniaHousing
+from chapter_10.data_model.housing_Boston import BostonHousing
+from chapter_10.data_model.housing_california import CaliforniaHousing
 
 
 def build_model(n_hidden=1, n_neurons=30, learning_rate=3e-3, input_shape=[8]):

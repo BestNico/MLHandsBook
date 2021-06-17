@@ -7,4 +7,9 @@
 */__pycache__/*
 
 # for tensorboard logs
-my_logs/*
+*/my_logs/*
+
+*/*/*.h5
+
+# for tensorboard
+*/*/my_minst_logs/*
